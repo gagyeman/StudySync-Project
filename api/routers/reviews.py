@@ -1,0 +1,18 @@
+from fastapi import APIRouter, Depends, status
+from sqlalchemy.orm import Session
+from ..controllers import reviews as controller
+from ..schemas import review as schema
+from ..dependencies.database import get_db
+
+router = APIRouter(
+    tags=['Reviews'],
+    prefix="/reviews"
+)
+
+@router.post("/", response_model=schema.Review, status_code=status.HTTP_201_CREATED)
+def create(request: schema.ReviewCreate, db: Session = Depends(get_db)):
+    return controller.create(db=db, request=request)
+
+@router.delete("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete(item_id: int, db: Session = Depends(get_db)):
+    return controller.delete(db=db, item_id=item_id)

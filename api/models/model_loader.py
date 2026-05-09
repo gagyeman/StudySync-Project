@@ -1,8 +1,8 @@
 from .customer import Customer
-from .menu_item import MenuItem
-from .order import Order
+from .menu_items import MenuItem
+from .orders import Order
 from .payment import Payment
-from .review import Review
+from .reviews import Review
 
 def index():
     return {
